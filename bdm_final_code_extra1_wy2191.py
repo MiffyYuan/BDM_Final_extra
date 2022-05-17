@@ -131,7 +131,7 @@ def calculate_median(partId,part):
     median=None
     if len(dis)>0:
         dis.sort()
-        if sum(cus)!=0:
+        if sum(cus)>1:
           if sum(cus)%2==0:
             tag1=int(sum(cus)/2)
             tag2=int(tag1+1)
@@ -141,6 +141,9 @@ def calculate_median(partId,part):
           else:
             tag=int((sum(cus)+1)/2)
             median=dis[tag]
+        elif sum(cus)==1:
+          median=sum(dis)
+          
 
     yield key[0],key[1],median
 
