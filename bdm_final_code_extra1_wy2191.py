@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1OU_USqCROTPd8BcAztpgz8D-qZW3ZTjc
 """
 
-!pip install pyspark
-!pip install pyproj
 
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
