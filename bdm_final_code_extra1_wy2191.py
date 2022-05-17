@@ -29,12 +29,11 @@ cbg_list=list(cbg_list)
 
 cbg_dic=nyc_cbg.set_index('cbg_fips').to_dict()
 
-
 def to_list(a):
-  return [[a[0]],[a[1]]]
+  return [a[0],[a[1]]]
 
 def append(a,b):
-  a[0].append(b[0])
+  a[0].extend(b[0])
   a[1].append(b[1])
   return a
 
@@ -42,8 +41,6 @@ def extend(a,b):
   a[0].extend(b[0])
   a[1].extend(b[1])
   return a
-
-
 
 
 
@@ -66,7 +63,7 @@ def extract_valid_records(partId, part):
       if poi_cbg in cbg_list:
         if e_d=='2019-03'or s_d=='2019-03':
           vis=json.loads(visitor_home_cbgs)
-          dis=0
+          dis=[]
           cus=0
           for cbg in vis.keys():
             if cbg in cbg_list:
@@ -75,13 +72,16 @@ def extract_valid_records(partId, part):
 
               dist=Point(sg_vis[0],sg_vis[1]).distance(Point(sg_poi[0],sg_poi[1]))/5280
 
-              dis=dis+dist*vis[cbg]
+              for d in range(vis[cbg]):
+                dis.append(dist)
+
+
               cus=cus+vis[cbg]
           yield (poi_cbg,'2019-03'), (dis, cus, date_range_end, date_range_start)
 
         elif e_d=='2020-03'or s_d=='2020-03':
           vis=json.loads(visitor_home_cbgs)
-          dis=0
+          dis=[]
           cus=0
           for cbg in vis.keys():
             if cbg in cbg_list:
@@ -90,13 +90,14 @@ def extract_valid_records(partId, part):
 
               dist=Point(sg_vis[0],sg_vis[1]).distance(Point(sg_poi[0],sg_poi[1]))/5280
 
-              dis=dis+dist*vis[cbg]
+              for d in range(vis[cbg]):
+                dis.append(dist)
               cus=cus+vis[cbg]
           yield (poi_cbg,'2020-03'), (dis, cus, date_range_end, date_range_start) 
 
         elif e_d=='2020-10'or s_d=='2020-10':
           vis=json.loads(visitor_home_cbgs)
-          dis=0
+          dis=[]
           cus=0
           for cbg in vis.keys():
             if cbg in cbg_list:
@@ -105,13 +106,14 @@ def extract_valid_records(partId, part):
 
               dist=Point(sg_vis[0],sg_vis[1]).distance(Point(sg_poi[0],sg_poi[1]))/5280
 
-              dis=dis+dist*vis[cbg]
+              for d in range(vis[cbg]):
+                dis.append(dist)
               cus=cus+vis[cbg]
           yield (poi_cbg,'2020-10'), (dis, cus, date_range_end, date_range_start)
 
         elif e_d=='2019-10'or s_d=='2019-10':
           vis=json.loads(visitor_home_cbgs)
-          dis=0
+          dis=[]
           cus=0
           for cbg in vis.keys():
             if cbg in cbg_list:
@@ -120,9 +122,11 @@ def extract_valid_records(partId, part):
 
               dist=Point(sg_vis[0],sg_vis[1]).distance(Point(sg_poi[0],sg_poi[1]))/5280
 
-              dis=dis+dist*vis[cbg]
+              for d in range(vis[cbg]):
+                dis.append(dist)
               cus=cus+vis[cbg]
           yield (poi_cbg,'2019-10'), (dis, cus, date_range_end, date_range_start) 
+        
         
 
 def calculate_median(partId,part):
