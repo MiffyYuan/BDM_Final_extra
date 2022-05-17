@@ -147,7 +147,7 @@ def calculate_median(partId,part):
 
 if __name__=='__main__':
 
-    sys.argv[1]='BDM_Final'
+    #sys.argv[1]='BDM_Final'
     sc = SparkContext()
     rdd = sc.textFile('/tmp/bdm/weekly-patterns-nyc-2019-2020/*')
 
